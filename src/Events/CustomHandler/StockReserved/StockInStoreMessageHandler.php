@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Events\CustomHandler\CheckProductAvailability;
+namespace App\Events\CustomHandler\StockReserved;
 
-use App\Events\CustomHandler\TinyElephant\OnCreate\TinyElephantOnCreateMessage;
+use App\Events\CustomHandler\TinyElephant\PostPersist\TinyElephantCreatedEvent;
 use App\Events\Shared\EventPriority;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler(handles: StockMessage::class, priority: EventPriority::HEIGHT)]
-class StockInWareHouseMessageHandler
+#[AsMessageHandler(handles: StockReservedEvent::class, priority: EventPriority::HEIGHT)]
+class StockInStoreMessageHandler
 {
-    public function __invoke(StockMessage $stockMessage): bool
+    public function __invoke(StockReservedEvent $stockMessage): bool
     {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://webhook.site/f23ed6d2-d167-4a5b-883f-1794a77f75e7?warehouse=' . $stockMessage->id,
+            CURLOPT_URL => 'https://webhook.site/f23ed6d2-d167-4a5b-883f-1794a77f75e7?inStore=' . $stockMessage->id,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -27,10 +27,6 @@ class StockInWareHouseMessageHandler
         curl_exec($curl);
 
         curl_close($curl);
-
-        if ($stockMessage->id > 5) {
-            throw new \Exception('Warehouse error > 5 ');
-        }
 
         return true;
     }

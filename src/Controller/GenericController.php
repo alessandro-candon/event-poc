@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\TinyElephant;
-use App\Events\CustomHandler\CheckProductAvailability\StockMessage;
+use App\Events\CustomHandler\StockReserved\StockReservedEvent;
+use App\Events\Shared\GlobalEventsCollector;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GenericController extends AbstractController
@@ -29,10 +29,10 @@ class GenericController extends AbstractController
     #[Route('/test/sync/{id}', methods: [Request::METHOD_GET])]
     public function sync(
         int $id,
-        MessageBusInterface $messageBus
+        GlobalEventsCollector $globalEventsCollector
     )
     {
-        $messageBus->dispatch(new StockMessage($id));
+        $globalEventsCollector->doCollect(new StockReservedEvent($id));
         return $this->json([
             'ok'
         ]);

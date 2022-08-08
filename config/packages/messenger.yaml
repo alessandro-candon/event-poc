@@ -9,9 +9,11 @@ framework:
                     max_retries: 3
                     multiplier: 2
                     max_delay: 0
-            failed: 'doctrine://default?queue_name=failed'
+            failed: 'doctrine://default?queue_name=failed_async_priority_medium'
+            sync: 'sync://'
         routing:
-            'App\Events\Shared\AsyncMessageInterface': async
+            'App\Events\Shared\AsyncEventInterface': async
+            'App\Events\Shared\SyncEventInterface': sync
 
 when@test:
     framework:

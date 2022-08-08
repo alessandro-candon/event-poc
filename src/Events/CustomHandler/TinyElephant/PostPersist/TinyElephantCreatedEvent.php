@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Events\CustomHandler\TinyElephant\OnCreate;
+namespace App\Events\CustomHandler\TinyElephant\PostPersist;
 
 use App\Entity\TinyElephant;
-use App\Events\Shared\AsyncMessageInterface;
+use App\Events\Shared\AsyncEventInterface;
 
-final class TinyElephantOnCreateMessage implements AsyncMessageInterface
+final class TinyElephantCreatedEvent implements AsyncEventInterface
 {
     public function __construct(
         private readonly TinyElephant $tinyElephant
