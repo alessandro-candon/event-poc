@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events\Shared;
 
-class EventPriority
+enum EventPriority: int
 {
-    public const HEIGHT = 10;
-    public const MEDIUM = 5;
-    public const LOW = 1;
+    case HIGH = 15;
+    case MEDIUM = 10;
+    case LOW = 5;
 }
