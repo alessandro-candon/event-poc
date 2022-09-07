@@ -2,14 +2,12 @@ ARG DOCKER_REGISTRY=docker.io
 ARG PHP_VERSION=8.1
 
 FROM ${DOCKER_REGISTRY}/bitnami/php-fpm:${PHP_VERSION}-prod AS php_prod
-ARG GITHUB_TOKEN
 ARG COMPOSER_VERSION=2.3.10
 ENV PHP_INI_DIR="/opt/bitnami/php/etc" APP_ENV=prod APP_DEBUG=0 SERVER_ENV=prod
 
 USER root
 
 WORKDIR /app
-
 
 RUN set -eux \
   && apt-get update && apt-get install -y --no-install-recommends \
@@ -48,7 +46,7 @@ CMD ["php-fpm", "-F", "--pid", "/tmp/php-fpm.pid", "-y", "/opt/bitnami/php/etc/p
 
 FROM php_prod AS php_dev
 
-ENV PHP_INI_DIR="/opt/bitnami/php/etc" APP_ENV=dev APP_DEBUG=1 SERVER_ENV=dev
+ENV PHP_INI_DIR="/opt/bitnami/php/etc" APP_ENV=dev APP_DEBUG=1 SERVER_ENV=dev GOOGLE_APPLICATION_CREDENTIALS="/tmp/application_default_credentials.json"
 ARG INFECTION_VERSION=0.26.8
 
 USER root

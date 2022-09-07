@@ -5,7 +5,7 @@ namespace App\Events\CustomHandler\TinyElephant\PostPersist;
 use App\Events\Shared\EventPriority;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler(handles: TinyElephantCreatedEvent::class, priority: EventPriority::HEIGHT)]
+#[AsMessageHandler(handles: TinyElephantCreatedEvent::class, priority: EventPriority::HIGH)]
 class TinyElephantUpdateWebhookHandler
 {
     public function __invoke(TinyElephantCreatedEvent $tinyElephantMessage)

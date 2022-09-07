@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Events\Shared;
 
-enum EventPriority: int
+class EventPriority
 {
-    case HIGH = 15;
-    case MEDIUM = 10;
-    case LOW = 5;
+    public const HIGH = 10;
+    public const MEDIUM = 5;
+    public const LOW = 1;
 }

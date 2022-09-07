@@ -2,11 +2,9 @@
 
 namespace App\Events\CustomHandler\StockReserved;
 
-use App\Events\CustomHandler\TinyElephant\PostPersist\TinyElephantCreatedEvent;
 use App\Events\Shared\EventPriority;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler(handles: StockReservedEvent::class, priority: EventPriority::HEIGHT)]
+#[AsMessageHandler(handles: StockReservedEvent::class, priority: EventPriority::HIGH)]
 class StockInWareHouseMessageHandler
 {
     public function __invoke(StockReservedEvent $stockMessage): bool
